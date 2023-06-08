@@ -1,6 +1,7 @@
+import { useState } from "react"
 import check from "../images/list.svg"
 import MobileImage from "./Mobile-Image"
-import Email from "./Email-Form"
+import MobileSuccess from "./MobileSuccess"
 
 const text = [
     { text: "Product discovery and building what matters." },
@@ -9,16 +10,35 @@ const text = [
 ]
 
 export default function MobileForm() {
+    const [valid, setValid] = useState(true)
+    const [hidden, setHidden] = useState(true)
+
+    function handleEmailCheck(e) {
+        const isValid = e.target.checkValidity()
+        const value = e.target.value
+        console.log(value)
+        setValid(isValid)
+    }
+
+    function handleSuccessForm() {
+        if (valid) {
+            setHidden(!hidden)
+        }
+    }
+
     return (
         <>
-            <div className="md:hidden">
+            <section className={`md:hidden ${hidden ? '' : 'hidden'}`}>
                 <MobileImage />
-                <section className="px-5">
+                <div className="px-5">
                     <Title />
                     <List />
-                    <Email />
-                </section>
-            </div>
+                    <Email handleEmailCheck={handleEmailCheck} handleSuccessForm={handleSuccessForm} valid={valid} />
+                </div>
+            </section>
+            <section className={`md:hidden ${hidden ? 'hidden' : ''}`}>
+                <MobileSuccess />
+            </section>
         </>
     )
 }
@@ -49,3 +69,40 @@ function List() {
     )
 }
 
+function Email({ handleEmailCheck, handleSuccessForm, valid }) {
+    return (
+        <>
+            <div className="mr-5 mb-10">
+                <Input handleEmailCheck={handleEmailCheck} valid={valid} />
+                <Button handleSuccessForm={handleSuccessForm} />
+            </div>
+        </>
+    )
+}
+
+function Input({ handleEmailCheck, valid }) {
+    return (
+        <>
+            <div className="flex justify-between">
+                <h1 className="roboto-700 mt-5">Email address</h1>
+                <span className="pt-5 tomato">{!valid ? 'Valid email required ' : ''}</span>
+            </div>
+            <div>
+                <input className="border-2 rounded-lg pl-6 py-5 w-full mt-2 mb-5"
+                    placeholder="email@company.com"
+                    type="email"
+                    onChange={handleEmailCheck} />
+            </div>
+        </>
+    )
+}
+
+function Button({ handleSuccessForm }) {
+    return (
+        <>
+            <div>
+                <button className="dark-slate-bg text-white w-full rounded-lg py-5 roboto-700" onClick={handleSuccessForm}>Subscribe to monthly newsletter</button>
+            </div>
+        </>
+    )
+}

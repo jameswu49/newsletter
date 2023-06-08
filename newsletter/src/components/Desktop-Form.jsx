@@ -1,3 +1,4 @@
+import { useState } from "react"
 import image from "../images/desktop.svg"
 import check from "../images/list.svg"
 
@@ -8,14 +9,21 @@ const text = [
 ]
 
 export default function DesktopForm() {
+    const [valid, setValid] = useState(true)
+
+    function handleEmailCheck(e) {
+        const isValid = e.target.checkValidity()
+        setValid(isValid)
+    }
+
     return (
         <>
             <section className="hidden md:flex min-h-screen dark-slate-bg justify-center items-center">
-                <div className="flex bg-white rounded-[2rem] lg:w-[80%] 2xl:w-[60%]">
-                    <div className="w-1/2 px-20">
+                <div className="flex bg-white rounded-[2rem] lg:w-[70%] 2xl:w-[60%]">
+                    <div className="w-1/2 px-10">
                         <Title />
                         <List />
-                        <Input />
+                        <Input handleEmailCheck={handleEmailCheck} valid={valid} />
                         <Button />
                     </div>
                     <Image />
@@ -53,12 +61,18 @@ function List() {
     )
 }
 
-function Input() {
+function Input({ handleEmailCheck, valid }) {
     return (
         <>
-            <div>
+            <div className="flex justify-between">
                 <h1 className="roboto-700 pt-5">Email address</h1>
-                <input className="border-2 rounded-lg pl-4 py-5 w-full mt-2 mb-5" placeholder="email@company.com" type="text" />
+                <span className="pt-5 tomato">{!valid ? 'Valid email required ' : ''}</span>
+            </div>
+            <div>
+                <input className="border-2 rounded-lg pl-6 py-5 w-full mt-2 mb-5"
+                    placeholder="email@company.com"
+                    type="email"
+                    onChange={handleEmailCheck} />
             </div>
         </>
     )

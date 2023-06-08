@@ -27,3 +27,12 @@ body {
 .dark-slate-bg {
   background-color: hsl(234, 29%, 20%);
 }
+
+input:invalid {
+  background-color: #FFE8E6;
+  border-color: hsl(4, 91%, 78%);
+}
+
+.tomato {
+  color: hsl(4, 100%, 67%);
+}

@@ -51,7 +51,7 @@ export default function DesktopForm() {
                     </div>
                     <Image />
                 </div>
-                <div className={`flex bg-white rounded-[2rem] w-[38%] ${hideSuccess ? 'hidden' : ''}`}>
+                <div className={`flex bg-white rounded-[2rem] w-[30%] ${hideSuccess ? 'hidden' : ''}`}>
                     <DesktopSucess emailValue={emailValue} handleSuccess={handleSuccess} />
                 </div>
             </section>

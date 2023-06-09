@@ -36,3 +36,7 @@ body {
 .tomato {
   color: hsl(4, 100%, 67%);
 }
+
+.button:hover {
+  background-image: linear-gradient(to right, rgb(255, 82, 145), rgb(255, 115, 0));
+}

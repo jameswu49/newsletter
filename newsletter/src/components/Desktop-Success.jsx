@@ -26,7 +26,7 @@ function Button({ handleSuccess }) {
         <>
             <div className=" flex justify-center items-center">
                 <div className="w-[86%] py-8">
-                    <button className="w-full rounded-lg dark-slate-bg text-white roboto-400 py-4" onClick={handleSuccess}>Dismiss message</button>
+                    <button className="w-full rounded-lg dark-slate-bg text-white roboto-400 py-4 button" onClick={handleSuccess}>Dismiss message</button>
                 </div>
             </div>
         </>

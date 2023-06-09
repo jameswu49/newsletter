@@ -43,17 +43,16 @@ export default function DesktopForm() {
     return (
         <>
             <section className="hidden md:flex min-h-screen dark-slate-bg justify-center items-center">
-                <div className="flex bg-white rounded-[2rem] lg:w-[70%] 2xl:w-[60%] hidden">
+                <div className={`flex bg-white rounded-[2rem] lg:w-[70%] 2xl:w-[60%] ${hidden ? 'hidden' : ''}`}>
                     <div className="w-1/2 px-10">
                         <Title />
                         <List />
-                        <Input handleEmailCheck={handleEmailCheck} valid={valid} />
-                        <Button />
+                        <Email handleEmailCheck={handleEmailCheck} handleSuccessForm={handleSuccessForm} valid={valid} handleSubmit={handleSubmit} />
                     </div>
                     <Image />
                 </div>
-                <div className="flex bg-white rounded-[2rem] w-[38%]">
-                    <DesktopSucess />
+                <div className={`flex bg-white rounded-[2rem] w-[38%] ${hideSuccess ? 'hidden' : ''}`}>
+                    <DesktopSucess emailValue={emailValue} handleSuccess={handleSuccess} />
                 </div>
             </section>
         </>
@@ -88,7 +87,19 @@ function List() {
     )
 }
 
-function Input({ handleEmailCheck, valid }) {
+function Email({ handleEmailCheck, handleSuccessForm, valid, handleSubmit }) {
+    return (
+        <>
+            <form onSubmit={handleSubmit}>
+                <div className="mr-5 mb-10">
+                    <Input handleEmailCheck={handleEmailCheck} valid={valid} />
+                </div>
+            </form>
+        </>
+    )
+}
+
+function Input({ handleEmailCheck, valid, handleSuccessForm }) {
     return (
         <>
             <div className="flex justify-between">
@@ -99,21 +110,26 @@ function Input({ handleEmailCheck, valid }) {
                 <input className="border-2 rounded-lg pl-6 py-5 w-full mt-2 mb-5"
                     placeholder="email@company.com"
                     type="email"
-                    onChange={handleEmailCheck} />
+                    onChange={handleEmailCheck}
+                    required
+                />
+            </div>
+            <div className="">
+                <input type='submit' value='Subscribe to monthly newsletter' className="dark-slate-bg text-white w-full rounded-lg py-5 roboto-700" onClick={handleSuccessForm}></input>
             </div>
         </>
     )
 }
 
-function Button() {
-    return (
-        <>
-            <div className="">
-                <button className="dark-slate-bg text-white w-full rounded-lg py-5 roboto-700">Subscribe to monthly newsletter</button>
-            </div>
-        </>
-    )
-}
+// function Button({ handleSuccessForm }) {
+//     return (
+//         <>
+//             <div className="">
+//                 <input type='submit' value='Subscribe to monthly newsletter' className="dark-slate-bg text-white w-full rounded-lg py-5 roboto-700" onClick={handleSuccessForm}></input>
+//             </div>
+//         </>
+//     )
+// }
 
 function Image() {
     return (

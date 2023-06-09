@@ -4,8 +4,8 @@ export default function DesktopSuccess({ emailValue, handleSuccess }) {
     return (
         <>
             <div className="px-10 py-8">
-                <CheckMark />
-                <Button />
+                <CheckMark emailValue={emailValue} />
+                <Button handleSuccess={handleSuccess} />
             </div>
         </>
     )
@@ -16,7 +16,7 @@ function CheckMark({ emailValue }) {
         <div className="pt-5">
             <img className="pl-7" src={success} alt="" />
             <h1 className="dark-slate roboto-700 text-5xl pt-10 px-8">Thanks for subscribing!</h1>
-            <p className="px-8 pt-7">A confirmation email has been sent to {emailValue}. Please open it and click the button inside to confirm your subscription. </p>
+            <p className="px-8 pt-7">A confirmation email has been sent to <b>{emailValue}</b>. Please open it and click the button inside to confirm your subscription. </p>
         </div>
     )
 }

@@ -1,9 +1,9 @@
 {
   "name": "newsletter",
-  "homepage": "https://jameswu49.github.io/newsletter/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://<jameswu49>.github.io/newsletter/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

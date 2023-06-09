@@ -107,7 +107,7 @@ function Input({ handleEmailCheck, valid, handleSuccessForm }) {
                 <span className="pt-5 tomato">{!valid ? 'Valid email required ' : ''}</span>
             </div>
             <div>
-                <input className="border-2 rounded-lg pl-6 py-5 w-full mt-2 mb-5"
+                <input className={`border-2 rounded-lg pl-6 py-5 w-full mt-2 mb-5 ${!valid ? 'touched-input' : ''}`}
                     placeholder="email@company.com"
                     type="email"
                     onChange={handleEmailCheck}
@@ -120,16 +120,6 @@ function Input({ handleEmailCheck, valid, handleSuccessForm }) {
         </>
     )
 }
-
-// function Button({ handleSuccessForm }) {
-//     return (
-//         <>
-//             <div className="">
-//                 <input type='submit' value='Subscribe to monthly newsletter' className="dark-slate-bg text-white w-full rounded-lg py-5 roboto-700" onClick={handleSuccessForm}></input>
-//             </div>
-//         </>
-//     )
-// }
 
 function Image() {
     return (

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import DesktopSucess from "./Desktop-Success"
 import image from "../images/desktop.svg"
 import check from "../images/list.svg"
 
@@ -10,16 +11,39 @@ const text = [
 
 export default function DesktopForm() {
     const [valid, setValid] = useState(true)
+    const [hidden, setHidden] = useState(false)
+    const [hideSuccess, setSuccess] = useState(true)
+    const [emailValue, setEmailValue] = useState('')
 
     function handleEmailCheck(e) {
         const isValid = e.target.checkValidity()
+        setEmailValue(e.target.value)
         setValid(isValid)
+    }
+
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        handleSuccessForm()
+        e.target.reset()
+    }
+
+    function handleSuccessForm() {
+        if (valid) {
+            setHidden(!hidden)
+            setSuccess(!hideSuccess)
+        }
+    }
+
+    function handleSuccess() {
+        setSuccess(!hideSuccess)
+        setHidden(false)
     }
 
     return (
         <>
             <section className="hidden md:flex min-h-screen dark-slate-bg justify-center items-center">
-                <div className="flex bg-white rounded-[2rem] lg:w-[70%] 2xl:w-[60%]">
+                <div className="flex bg-white rounded-[2rem] lg:w-[70%] 2xl:w-[60%] hidden">
                     <div className="w-1/2 px-10">
                         <Title />
                         <List />
@@ -27,6 +51,9 @@ export default function DesktopForm() {
                         <Button />
                     </div>
                     <Image />
+                </div>
+                <div className="flex bg-white rounded-[2rem] w-[38%]">
+                    <DesktopSucess />
                 </div>
             </section>
         </>

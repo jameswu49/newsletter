@@ -11,33 +11,46 @@ const text = [
 
 export default function MobileForm() {
     const [valid, setValid] = useState(true)
-    const [hidden, setHidden] = useState(true)
+    const [hidden, setHidden] = useState(false)
+    const [hideMobileSuccess, setMobileSuccess] = useState(true)
+    const [emailValue, setEmailValue] = useState('')
 
     function handleEmailCheck(e) {
         const isValid = e.target.checkValidity()
-        const value = e.target.value
-        console.log(value)
+        setEmailValue(e.target.value)
         setValid(isValid)
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        handleSuccessForm()
+        e.target.reset()
     }
 
     function handleSuccessForm() {
         if (valid) {
             setHidden(!hidden)
+            setMobileSuccess(!hideMobileSuccess)
         }
+    }
+
+    function handleMobileSuccess() {
+        setMobileSuccess(!hideMobileSuccess)
+        setHidden(false)
     }
 
     return (
         <>
-            <section className={`md:hidden ${hidden ? '' : 'hidden'}`}>
+            <section className={`md:hidden ${hidden ? 'hidden' : ''}`}>
                 <MobileImage />
                 <div className="px-5">
                     <Title />
                     <List />
-                    <Email handleEmailCheck={handleEmailCheck} handleSuccessForm={handleSuccessForm} valid={valid} />
+                    <Email handleEmailCheck={handleEmailCheck} handleSuccessForm={handleSuccessForm} valid={valid} handleSubmit={handleSubmit} />
                 </div>
             </section>
-            <section className={`md:hidden ${hidden ? 'hidden' : ''}`}>
-                <MobileSuccess />
+            <section className={`md:hidden ${hideMobileSuccess ? 'hidden' : ''}`}>
+                <MobileSuccess handleMobileSuccess={handleMobileSuccess} emailValue={emailValue} />
             </section>
         </>
     )
@@ -69,18 +82,19 @@ function List() {
     )
 }
 
-function Email({ handleEmailCheck, handleSuccessForm, valid }) {
+function Email({ handleEmailCheck, handleSuccessForm, valid, handleSubmit }) {
     return (
         <>
-            <div className="mr-5 mb-10">
-                <Input handleEmailCheck={handleEmailCheck} valid={valid} />
-                <Button handleSuccessForm={handleSuccessForm} />
-            </div>
+            <form onSubmit={handleSubmit}>
+                <div className="mr-5 mb-10">
+                    <Input handleEmailCheck={handleEmailCheck} valid={valid} />
+                </div>
+            </form>
         </>
     )
 }
 
-function Input({ handleEmailCheck, valid }) {
+function Input({ handleEmailCheck, valid, handleSuccessForm }) {
     return (
         <>
             <div className="flex justify-between">
@@ -88,10 +102,15 @@ function Input({ handleEmailCheck, valid }) {
                 <span className="pt-5 tomato">{!valid ? 'Valid email required ' : ''}</span>
             </div>
             <div>
-                <input className="border-2 rounded-lg pl-6 py-5 w-full mt-2 mb-5"
+                <input className={`border-2 rounded-lg pl-6 py-5 w-full mt-2 mb-5 ${!valid ? 'touched-input' : ''}`}
                     placeholder="email@company.com"
                     type="email"
-                    onChange={handleEmailCheck} />
+                    onChange={handleEmailCheck}
+                    required
+                />
+            </div>
+            <div>
+                <input type='submit' value="Subscribe to monthly newsletter" className="dark-slate-bg text-white w-full rounded-lg py-5 roboto-400" onClick={handleSuccessForm}></input>
             </div>
         </>
     )

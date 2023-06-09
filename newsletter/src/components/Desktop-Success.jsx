@@ -3,7 +3,7 @@ import success from "../images/success.svg"
 export default function DesktopSuccess({ emailValue, handleSuccess }) {
     return (
         <>
-            <div className="px-10 py-8">
+            <div className="px-10 py-8 w-full">
                 <CheckMark emailValue={emailValue} />
                 <Button handleSuccess={handleSuccess} />
             </div>
